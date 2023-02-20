@@ -1,5 +1,30 @@
 import tkinter
+import sqlite3
 from tkinter import *
+
+conn=sqlite3.connect('test.db')
+c=conn.cursor()
+
+#table
+c.execute('''CREATE TABLE IF NOT EXISTS user(username text,password text)''')
+c.execute("INSERT INTO user VALUES('vihanga','test')")
+
+
+def get_user():
+    username= user.get()
+    pw=password.get()
+
+    c.execute("SELECT * FROM user WHERE username=? AND password=?", (username, pw))
+    check = c.fetchone()
+    if check is not None:
+        print("Success")
+    else:
+        print("Invalid")
+
+def clear():
+    user.delete(0,tkinter.END)
+    password.delete(0,tkinter.END)
+
 
 top=Tk()
 top.title("Student LMS")
@@ -9,17 +34,20 @@ heading.grid(row=0,column=2)
 
 label=tkinter.Label(text="Insert Name: ")
 label.grid(row=2,column=1)
-entry=tkinter.Entry()
-entry.grid(row=2,column=2)
+user=tkinter.Entry()
+user.grid(row=2,column=2)
 
 label=tkinter.Label(text="Insert Password: ")
 label.grid(row=4,column=1)
-entry=tkinter.Entry()
-entry.grid(row=4,column=2)
+password=tkinter.Entry(show="*")
+password.grid(row=4,column=2)
 
-button = tkinter.Button(text='test')
+button = tkinter.Button(text="Input",command= get_user)
 button.grid(row=5,column=1)
-button2 = tkinter.Button(text='test')
+button2 = tkinter.Button(text='clear',command=clear)
 button2.grid(row=5,column=2)
 
+
+
 top.mainloop()
+conn.close()
