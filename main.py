@@ -2,36 +2,8 @@ import tkinter
 import sqlite3
 from tkinter import *
 
-conn = sqlite3.connect('test.db')
-c = conn.cursor()
 #table
-def initialize_table():
 
-c.execute('''CREATE TABLE IF NOT EXISTS user(username text,password text)''')
-c.execute("INSERT INTO user VALUES('vihanga','test')")
-messagebox.showinfo("Success", "User added successfully!")
-c.execute ("SELECT * FROM user WHERE username=?",(test))
-rows = c.fetchall()
-for row in rows:
-    print(row)
-
-print (test)
-
-def get_user():
-    username= user.get()
-    pw=password.get()
-
-    c.execute("SELECT * FROM user WHERE username=? AND password=?", (username, pw))
-    check = c.fetchone()
-    if check is not None:
-        print("Success")
-    else:
-        print("Invalid")
-
-def combine():
-    initialize_table()
-    get_user()
-    conn.commit()
 
 def clear():
     user.delete(0,tkinter.END)
@@ -54,12 +26,42 @@ label.grid(row=4,column=1)
 password=tkinter.Entry(show="*")
 password.grid(row=4,column=2)
 
-button = tkinter.Button(text="Input",command= combine)
-button.grid(row=5,column=1)
+
 button2 = tkinter.Button(text='clear',command=clear)
 button2.grid(row=5,column=2)
 
+def login():
+    conn = sqlite3.connect('test.db')
+    print("test")
 
+    conn.execute('''CREATE TABLE IF NOT EXISTS user(username text,password text)''')
+    conn.execute("INSERT INTO user VALUES('vihanga','test')")
+    conn.commit()
+    print("Success", "User added successfully!")
+
+    cursor = conn.execute("SELECT * FROM user")
+    check = conn.cursor()
+    if check is not None:
+        print("Success")
+    else:
+        print("Invalid")
+
+
+    username= user.get()
+    pw=password.get()
+
+    cursor = conn.execute("SELECT username FROM user")##WHERE username=?",username)
+    users = cursor.fetchone()
+    print (users)
+
+    if users is not None and users[1]==pw:
+        print("Success")
+    else:
+        print("Failure")
+
+    conn.close()
+
+button = tkinter.Button(text="Input",command= login)
+button.grid(row=5,column=1)
 
 top.mainloop()
-conn.close()
