@@ -3,11 +3,17 @@ import sqlite3
 from tkinter import *
 
 #table
+conn = sqlite3.connect('test1.db')
 
+conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT,password TEXT)")
+conn.execute("INSERT INTO users (username,password) VALUES('tester','ij')")
+conn.commit()
+print("Success", "User added successfully!")
 
 def clear():
     user.delete(0,tkinter.END)
     password.delete(0,tkinter.END)
+
 
 
 top=Tk()
@@ -31,15 +37,9 @@ button2 = tkinter.Button(text='clear',command=clear)
 button2.grid(row=5,column=2)
 
 def login():
-    conn = sqlite3.connect('test.db')
-    print("test")
 
-    conn.execute('''CREATE TABLE IF NOT EXISTS user(username text,password text)''')
-    conn.execute("INSERT INTO user VALUES('vihanga','test')")
-    conn.commit()
-    print("Success", "User added successfully!")
 
-    cursor = conn.execute("SELECT * FROM user")
+    cursor = conn.execute("SELECT * FROM users")
     check = conn.cursor()
     if check is not None:
         print("Success")
@@ -50,18 +50,18 @@ def login():
     username= user.get()
     pw=password.get()
 
-    cursor = conn.execute("SELECT username FROM user")##WHERE username=?",username)
+    cursor = conn.execute("SELECT username,password FROM users ")
     users = cursor.fetchone()
     print (users)
 
-    if users is not None and users[1]==pw:
-        print("Success")
+    if users is not None and users[1] == username:
+        print("Login successful")
     else:
-        print("Failure")
+        print("Login failed")
 
-    conn.close()
 
 button = tkinter.Button(text="Input",command= login)
 button.grid(row=5,column=1)
 
 top.mainloop()
+conn.close()
