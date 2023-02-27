@@ -45,13 +45,14 @@ def login():
 
     cursor = conn.execute("SELECT username,password FROM users WHERE username=? AND password=? ", [uname, pw])
     users = cursor.fetchone()
-    print(users)
 
     if users is not None and users[0] == uname:
         if users is not None and users[1] == password:
-         print("Login successful")
+            print("Login Failed")
+        else:
+            print("Login Successful")
     else:
-        print("Login failed")
+        print("Login Failed")
 
 
 button = tkinter.Button(text="Input", command=login)
