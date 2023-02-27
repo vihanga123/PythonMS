@@ -6,7 +6,7 @@ from tkinter import *
 conn = sqlite3.connect('test1.db')
 
 conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT,password TEXT)")
-conn.execute("INSERT INTO users (username,password) VALUES('tester','ij')")
+#conn.execute("INSERT INTO users (username,password) VALUES('tester','ij')")
 conn.commit()
 print("Success", "User added successfully!")
 
@@ -47,9 +47,9 @@ def login():
     users = cursor.fetchone()
     print(users)
 
-    if users is not None and users[1] == uname:
+    if users is not None and users[0] == uname:
         if users is not None and users[1] == password:
-            print("Login successful")
+         print("Login successful")
     else:
         print("Login failed")
 
