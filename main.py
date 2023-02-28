@@ -6,7 +6,7 @@ from tkinter import *
 conn = sqlite3.connect('test1.db')
 
 conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT,password TEXT)")
-#conn.execute("INSERT INTO users (username,password) VALUES('tester','ij')")
+# conn.execute("INSERT INTO users (username,password) VALUES('tester','ij')")
 conn.commit()
 print("Success", "User added successfully!")
 
@@ -51,8 +51,32 @@ def login():
             print("Login Failed")
         else:
             print("Login Successful")
+            dashboard()
     else:
         print("Login Failed")
+
+
+def dashboard():
+    dash = tkinter.Toplevel(top)
+    dash.title("Dashboard")
+    dash.geometry("300x200")
+    dashhead = tkinter.Label(text="Login Form", background="#34A2FE", foreground="white")
+    dashhead.grid(row=0, column=2)
+
+    dashlabel = tkinter.Label(text="Insert Name: ")
+    dashlabel.grid(row=2, column=1)
+    dashuser = tkinter.Entry()
+    dashuser.grid(row=2, column=2)
+
+    dashlabel = tkinter.Label(text="Insert Password: ")
+    dashlabel.grid(row=4, column=1)
+    dashpassword = tkinter.Entry(show="*")
+    dashpassword.grid(row=4, column=2)
+
+    newbutton2 = tkinter.Button(text='clear', command=clear)
+    newbutton2.grid(row=5, column=2)
+
+    dash.mainloop()
 
 
 button = tkinter.Button(text="Input", command=login)
