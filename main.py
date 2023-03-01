@@ -59,7 +59,7 @@ def login():
 def dashboard():
     dash = tkinter.Toplevel(top)
     dash.title("Dashboard")
-    dash.geometry("300x200")
+    dash.geometry("600x200")
     dashhead = tkinter.Label(text="Login Form", background="#34A2FE", foreground="white")
     dashhead.grid(row=0, column=2)
 
@@ -76,7 +76,7 @@ def dashboard():
     newbutton2 = tkinter.Button(text='clear', command=clear)
     newbutton2.grid(row=5, column=2)
 
-    dash.mainloop()
+    dash.grab_set()
 
 
 button = tkinter.Button(text="Input", command=login)
