@@ -37,8 +37,6 @@ button2.grid(row=5, column=2)
 
 
 def login():
-    cursor = conn.execute("SELECT * FROM users")
-    check = conn.cursor()
 
     uname = user.get()
     pw = password.get()
@@ -60,20 +58,20 @@ def dashboard():
     dash = tkinter.Toplevel(top)
     dash.title("Dashboard")
     dash.geometry("600x200")
-    dashhead = tkinter.Label(text="Login Form", background="#34A2FE", foreground="white")
+    dashhead = tkinter.Label(dash, text="Login Form", background="#34A2FE", foreground="white")
     dashhead.grid(row=0, column=2)
 
-    dashlabel = tkinter.Label(text="Insert Name: ")
+    dashlabel = tkinter.Label(dash, text="Insert Name: ")
     dashlabel.grid(row=2, column=1)
-    dashuser = tkinter.Entry()
+    dashuser = tkinter.Entry(dash)
     dashuser.grid(row=2, column=2)
 
-    dashlabel = tkinter.Label(text="Insert Password: ")
+    dashlabel = tkinter.Label(dash, text="Insert Password: ")
     dashlabel.grid(row=4, column=1)
-    dashpassword = tkinter.Entry(show="*")
+    dashpassword = tkinter.Entry(dash, show="*")
     dashpassword.grid(row=4, column=2)
 
-    newbutton2 = tkinter.Button(text='clear', command=clear)
+    newbutton2 = tkinter.Button(dash, text='Add user')
     newbutton2.grid(row=5, column=2)
 
     dash.grab_set()
