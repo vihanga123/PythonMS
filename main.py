@@ -6,7 +6,7 @@ from tkinter import *
 conn = sqlite3.connect('test1.db')
 
 conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT,password TEXT)")
-# conn.execute("INSERT INTO users (username,password) VALUES('tester','ij')")
+#conn.execute("INSERT INTO users (username,password) VALUES('tester','ij')")
 conn.commit()
 print("Success", "User added successfully!")
 
@@ -61,21 +61,59 @@ def dashboard():
     dashhead = tkinter.Label(dash, text="Dashboard", background="#34A2FE", foreground="white")
     dashhead.grid(row=0, column=2)
 
-    regStudent = tkinter.Button(dash, text='Register a Student')
+    regStudent = tkinter.Button(dash, text='Register a Student', command=StudentReg)
     regStudent.grid(row=2, column=1)
-    showStudent = tkinter.Button(dash, text='See details of a Student')
+    showStudent = tkinter.Button(dash, text='See details of a Student', command=ViewStudent)
     showStudent.grid(row=2, column=2)
-    regStaff = tkinter.Button(dash, text='Register a Staff member')
+    regStaff = tkinter.Button(dash, text='Register a Staff member', command=RegStaff)
     regStaff.grid(row=3, column=1)
-    showStaff = tkinter.Button(dash, text='See details of a Staff member')
+    showStaff = tkinter.Button(dash, text='See details of a Staff member', command= ViewStaff)
     showStaff.grid(row=3, column=2)
-
 
     dash.grab_set()
 
-
 button = tkinter.Button(text="Input", command=login)
 button.grid(row=5, column=1)
+
+
+def StudentReg():
+    StudentReg = tkinter.Toplevel(top)
+    StudentReg.title("Student Registration")
+    StudentReg.geometry("600x200")
+    StudentReghead = tkinter.Label(StudentReg, text="Student Registration", background="#34A2FE", foreground="white")
+    StudentReghead.grid(row=0, column=2)
+
+    StudentReg.grab_set()
+
+
+def ViewStudent():
+    ViewStudent = tkinter.Toplevel(top)
+    ViewStudent.title("View Student Details")
+    ViewStudent.geometry("600x200")
+    ViewStudenthead = tkinter.Label(ViewStudent, text="View Student Details", background="#34A2FE", foreground="white")
+    ViewStudenthead.grid(row=0, column=2)
+
+    ViewStudent.grab_set()
+
+
+def RegStaff():
+    RegStaff = tkinter.Toplevel(top)
+    RegStaff.title("Register Staff")
+    RegStaff.geometry("600x200")
+    RegStaffhead = tkinter.Label(RegStaff, text="Register Staff", background="#34A2FE", foreground="white")
+    RegStaffhead.grid(row=0, column=2)
+
+    RegStaff.grab_set()
+
+
+def ViewStaff():
+    ViewStaff = tkinter.Toplevel(top)
+    ViewStaff.title("View Staff Details")
+    ViewStaff.geometry("600x200")
+    ViewStaffhead = tkinter.Label(ViewStaff, text="View Staff Details", background="#34A2FE", foreground="white")
+    ViewStaffhead.grid(row=0, column=2)
+
+    ViewStaff.grab_set()
 
 top.mainloop()
 conn.close()
