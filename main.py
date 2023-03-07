@@ -1,9 +1,10 @@
 import tkinter
 import sqlite3
+from sqlite3 import Connection
 from tkinter import *
 
 # table
-conn = sqlite3.connect('test1.db')
+conn: Connection = sqlite3.connect('test1.db')
 
 conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT,password TEXT)")
 #conn.execute("INSERT INTO users (username,password) VALUES('tester','ij')")
@@ -77,14 +78,44 @@ button.grid(row=5, column=1)
 
 
 def StudentReg():
+    conn.execute("CREATE TABLE IF NOT EXISTS student (Sid INTEGER ,name TEXT,age INTEGER, pathway TEXT)")
+
     StudentReg = tkinter.Toplevel(top)
     StudentReg.title("Student Registration")
     StudentReg.geometry("600x200")
     StudentReghead = tkinter.Label(StudentReg, text="Student Registration", background="#34A2FE", foreground="white")
     StudentReghead.grid(row=0, column=2)
 
+    label = tkinter.Label(StudentReg, text="Student ID: ")
+    label.grid(row=2, column=1)
+    Uid = tkinter.Entry(StudentReg)
+    Uid.grid(row=2, column=2)
+
+    label = tkinter.Label(StudentReg, text="Student Name: ")
+    label.grid(row=3, column=1)
+    Sname = tkinter.Entry(StudentReg)
+    Sname.grid(row=3, column=2)
+
+    label = tkinter.Label(StudentReg, text="Student Age: ")
+    label.grid(row=4, column=1)
+    Sage = tkinter.Entry(StudentReg)
+    Sage.grid(row=4, column=2)
+
+    label = tkinter.Label(StudentReg, text="Student Pathway: ")
+    label.grid(row=5, column=1)
+    pathway = tkinter.Entry(StudentReg)
+    pathway.grid(row=5, column=2)
+
+
     StudentReg.grab_set()
 
+    def AddStudent():
+        Uidint = int(Uid.get())
+        Sageint = int(Sage.get())
+        conn.execute("INSERT INTO student (Sid,name,age,pathway) VALUES (?, ?, ?, ?)", [Uidint, Sname, Sageint, pathway])
+
+    register = tkinter.Button(StudentReg, text="Register", command=AddStudent)
+    register.grid(row=6, column=2)
 
 def ViewStudent():
     ViewStudent = tkinter.Toplevel(top)
@@ -97,6 +128,7 @@ def ViewStudent():
 
 
 def RegStaff():
+    conn.execute("CREATE TABLE IF NOT EXISTS staff (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT,password TEXT)")
     RegStaff = tkinter.Toplevel(top)
     RegStaff.title("Register Staff")
     RegStaff.geometry("600x200")
