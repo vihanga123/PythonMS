@@ -111,8 +111,10 @@ def StudentReg():
 
     def AddStudent():
         Uidint = int(Uid.get())
+        sname = Sname.get()
         Sageint = int(Sage.get())
-        conn.execute("INSERT INTO student (Sid,name,age,pathway) VALUES (?, ?, ?, ?)", [Uidint, Sname, Sageint, pathway])
+        spathway = pathway.get()
+        conn.execute("INSERT INTO student (Sid,name,age,pathway) VALUES (?, ?, ?, ?)", [Uidint, sname, Sageint, spathway])
 
     register = tkinter.Button(StudentReg, text="Register", command=AddStudent)
     register.grid(row=6, column=2)
