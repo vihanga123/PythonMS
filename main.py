@@ -7,7 +7,7 @@ from tkinter import *
 conn: Connection = sqlite3.connect('test1.db')
 
 conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT,password TEXT)")
-#conn.execute("INSERT INTO users (username,password) VALUES('tester','ij')")
+#conn.execute("INSERT INTO users (username,password) VALUES('vihanga','123')")
 conn.commit()
 print("Success", "User added successfully!")
 
@@ -78,7 +78,7 @@ button.grid(row=5, column=1)
 
 
 def StudentReg():
-    conn.execute("CREATE TABLE IF NOT EXISTS student (Sid INTEGER ,name TEXT,age INTEGER, pathway TEXT)")
+    conn.execute("CREATE TABLE IF NOT EXISTS student (Sid INTEGER PRIMARY KEY ,name TEXT,age INTEGER, pathway TEXT)")
 
     StudentReg = tkinter.Toplevel(top)
     StudentReg.title("Student Registration")
@@ -106,6 +106,12 @@ def StudentReg():
     pathway = tkinter.Entry(StudentReg)
     pathway.grid(row=5, column=2)
 
+    cursor = conn.execute("SELECT * FROM student")
+    data = cursor.fetchall()
+
+    for info in data:
+        print(info)
+
 
     StudentReg.grab_set()
 
@@ -115,6 +121,7 @@ def StudentReg():
         Sageint = int(Sage.get())
         spathway = pathway.get()
         conn.execute("INSERT INTO student (Sid,name,age,pathway) VALUES (?, ?, ?, ?)", [Uidint, sname, Sageint, spathway])
+        print("Student Registered Successfully")
 
     register = tkinter.Button(StudentReg, text="Register", command=AddStudent)
     register.grid(row=6, column=2)
