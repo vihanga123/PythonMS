@@ -1,5 +1,8 @@
 import tkinter
 import sqlite3
+import sys
+import random
+from PySide6 import QtCore, QtWidgets, QtGui
 from sqlite3 import Connection
 from tkinter import *
 
@@ -7,7 +10,7 @@ from tkinter import *
 conn: Connection = sqlite3.connect('test1.db')
 
 conn.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT,username TEXT,password TEXT)")
-#conn.execute("INSERT INTO users (username,password) VALUES('vihanga','123')")
+# conn.execute("INSERT INTO users (username,password) VALUES('vihanga','123')")
 conn.commit()
 print("Success", "User added successfully!")
 
@@ -15,6 +18,24 @@ print("Success", "User added successfully!")
 def clear():
     user.delete(0, tkinter.END)
     password.delete(0, tkinter.END)
+
+
+class Qtapp(QtWidgets.QWidget):
+        self.hello = ["Hello Vihanga"]
+        self.button = QtWidgets.QPushButton("Click here!")
+        self.text = QtWidgets.QLabel("Hello World", alignment=QtCore.Qt.AlignCenter)
+
+        self.layout = QtWidgets.QBoxLayout(self)
+        self.layout.addWidget(self.text)
+        self.layout.addWidget(self.button)
+
+        self.button.mouseDoubleClickEvent(random.choice(self.hello))
+
+        @QtCore.Slot()
+        def magic(self):
+            self.text.setText(random.choice(self.hello))
+
+
 
 
 top = Tk()
@@ -38,7 +59,6 @@ button2.grid(row=5, column=2)
 
 
 def login():
-
     uname = user.get()
     pw = password.get()
 
@@ -68,10 +88,11 @@ def dashboard():
     showStudent.grid(row=2, column=2)
     regStaff = tkinter.Button(dash, text='Register a Staff member', command=RegStaff)
     regStaff.grid(row=3, column=1)
-    showStaff = tkinter.Button(dash, text='See details of a Staff member', command= ViewStaff)
+    showStaff = tkinter.Button(dash, text='See details of a Staff member', command=ViewStaff)
     showStaff.grid(row=3, column=2)
 
     dash.grab_set()
+
 
 button = tkinter.Button(text="Input", command=login)
 button.grid(row=5, column=1)
@@ -112,7 +133,6 @@ def StudentReg():
     for info in data:
         print(info)
 
-
     StudentReg.grab_set()
 
     def AddStudent():
@@ -120,11 +140,13 @@ def StudentReg():
         sname = Sname.get()
         Sageint = int(Sage.get())
         spathway = pathway.get()
-        conn.execute("INSERT INTO student (Sid,name,age,pathway) VALUES (?, ?, ?, ?)", [Uidint, sname, Sageint, spathway])
+        conn.execute("INSERT INTO student (Sid,name,age,pathway) VALUES (?, ?, ?, ?)",
+                     [Uidint, sname, Sageint, spathway])
         print("Student Registered Successfully")
 
     register = tkinter.Button(StudentReg, text="Register", command=AddStudent)
     register.grid(row=6, column=2)
+
 
 def ViewStudent():
     ViewStudent = tkinter.Toplevel(top)
@@ -155,6 +177,7 @@ def ViewStaff():
     ViewStaffhead.grid(row=0, column=2)
 
     ViewStaff.grab_set()
+
 
 top.mainloop()
 conn.close()
