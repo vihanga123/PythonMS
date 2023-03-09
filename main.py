@@ -1,8 +1,5 @@
 import tkinter
 import sqlite3
-import sys
-import random
-from PySide6 import QtCore, QtWidgets, QtGui
 from sqlite3 import Connection
 from tkinter import *
 
@@ -18,24 +15,6 @@ print("Success", "User added successfully!")
 def clear():
     user.delete(0, tkinter.END)
     password.delete(0, tkinter.END)
-
-
-class Qtapp(QtWidgets.QWidget):
-        self.hello = ["Hello Vihanga"]
-        self.button = QtWidgets.QPushButton("Click here!")
-        self.text = QtWidgets.QLabel("Hello World", alignment=QtCore.Qt.AlignCenter)
-
-        self.layout = QtWidgets.QBoxLayout(self)
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.button)
-
-        self.button.mouseDoubleClickEvent(random.choice(self.hello))
-
-        @QtCore.Slot()
-        def magic(self):
-            self.text.setText(random.choice(self.hello))
-
-
 
 
 top = Tk()
