@@ -1,9 +1,7 @@
-import sys
-import random
-from PySide6 import QtCore, QtWidgets, QtGui
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QLabel, QMainWindow, QPushButton
 
 
+
+"""
 class ButtonHolder(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -11,8 +9,15 @@ class ButtonHolder(QMainWindow):
         button = QPushButton("Press")
         self.setCentralWidget(button)
 
+"""
+import sys
+from PySide6.QtWidgets import QApplication, QVBoxLayout, QLabel, QMainWindow, QPushButton
+from NewButton import NewButton
+
 
 app = QApplication(sys.argv)
-window = ButtonHolder()
+window = NewButton()
 window.show()
 app.exec()
+
+
