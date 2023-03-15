@@ -1,6 +1,6 @@
 import sys
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QApplication, QSlider, QWidget, QPushButton,QVBoxLayout
+from PySide6.QtCore import QSize
+from PySide6.QtWidgets import QSlider, QWidget, QPushButton, QVBoxLayout, QMainWindow, QToolBar
 
 """
 def button_clicked(data):
@@ -31,7 +31,7 @@ sd.show()
 app.exec()
 """
 
-
+"""
 class widget(QWidget):
     def __init__(self):
         super().__init__()
@@ -51,3 +51,34 @@ class widget(QWidget):
 
     def button_message(self):
         print("Button Pressed")
+        
+"""
+
+
+class MainWindow(QMainWindow):
+    def __init__(self, app):
+        super().__init__()
+        self.app = app
+        self.setWindowTitle("Title")
+
+        # Menubar and menus
+        menu = self.menuBar()
+        file_menu = menu.addMenu("&File")
+        quit_action = file_menu.addAction("Quit")
+        quit_action.triggered.connect(self.quit)
+
+        about_menu = menu.addMenu("About")
+        license_action = about_menu.addAction("License")
+        about = about_menu.addAction("About")
+        # about.triggered.connect(self.about)
+
+        toolbar = QToolBar("Main Toolbar")
+        toolbar.setIconSize(QSize(16,16))
+        self.addToolBar(toolbar)
+
+        toolbar.addAction(quit_action)
+
+    def quit(self):
+        self.app.quit()
+
+

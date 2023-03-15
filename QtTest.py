@@ -12,12 +12,13 @@ class ButtonHolder(QMainWindow):
 """
 import sys
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QLabel, QMainWindow, QPushButton, QWidget
-from testfile import widget
+from testfile import MainWindow
 
 
 app = QApplication(sys.argv)
-window= widget()
+window = MainWindow(app)
 window.show()
+
 app.exec()
 
 
