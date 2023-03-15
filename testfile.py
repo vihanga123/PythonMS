@@ -1,5 +1,6 @@
 import sys
 from PySide6.QtCore import QSize
+from PySide6.QtGui import QAction
 from PySide6.QtWidgets import QSlider, QWidget, QPushButton, QVBoxLayout, QMainWindow, QToolBar
 
 """
@@ -78,7 +79,15 @@ class MainWindow(QMainWindow):
 
         toolbar.addAction(quit_action)
 
+        action1 = QAction("Test action", self)
+        action1.setStatusTip("Status messege of actions")
+        action1.triggered.connect(self.toolbar_button_click)
+        toolbar.addAction(action1)
+
     def quit(self):
         self.app.quit()
+
+    def toolbar_button_click(self):
+        print("action triggered")
 
 
