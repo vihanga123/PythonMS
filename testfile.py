@@ -1,7 +1,7 @@
 import sys
 from PySide6.QtCore import QSize
-from PySide6.QtGui import QAction
-from PySide6.QtWidgets import QSlider, QWidget, QPushButton, QVBoxLayout, QMainWindow, QToolBar
+from PySide6.QtGui import QAction, QIcon
+from PySide6.QtWidgets import QSlider, QWidget, QPushButton, QVBoxLayout, QMainWindow, QToolBar, QStatusBar
 
 """
 def button_clicked(data):
@@ -56,6 +56,8 @@ class widget(QWidget):
 """
 
 
+
+"""
 class MainWindow(QMainWindow):
     def __init__(self, app):
         super().__init__()
@@ -84,10 +86,34 @@ class MainWindow(QMainWindow):
         action1.triggered.connect(self.toolbar_button_click)
         toolbar.addAction(action1)
 
+        action2 = QAction(QIcon("image.png"),"New Action", self)
+        action2.setStatusTip("Status message")
+        action2.triggered.connect(self.toolbar_icon)
+        toolbar.addAction(action2)
+
+        toolbar.addSeparator()
+        toolbar.addWidget(QPushButton("CLick here"))
+
+        #Status bar
+        self.setStatusBar(QStatusBar(self))
+
+        #Button
+        button1 = QPushButton("Button")
+        button1.clicked.connect(self.button)
+        self.setCentralWidget(button1)
+
     def quit(self):
         self.app.quit()
 
     def toolbar_button_click(self):
-        print("action triggered")
+        self.statusBar().showMessage("This is the message shown by the status bar", 3000)
+
+    def toolbar_icon(self):
+        print("Image will be shown")
+
+    def button(self):
+        print("The button has been pressed")
+        self.statusBar().showMessage("The button has been pressed",1000)
+"""
 
 
