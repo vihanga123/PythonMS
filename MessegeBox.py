@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QWidget, QPushButton,QVBoxLayout,QMessageBox
+from PySide6.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMessageBox
+
 
 class widget(QWidget):
     def __init__(self):
@@ -24,7 +25,6 @@ class widget(QWidget):
         button_about = QPushButton("About")
         button_about.clicked.connect(self.button_clicked_about)
 
-
         layout = QVBoxLayout()
         layout.addWidget(button_hard)
         layout.addWidget(button_critical)
@@ -34,14 +34,13 @@ class widget(QWidget):
         layout.addWidget(button_about)
         self.setLayout(layout)
 
-
     def button_clicked_hard(self):
         message = QMessageBox()
-        message.setMinimumSize(900,200)
+        message.setMinimumSize(900, 200)
         message.setWindowTitle("Critical Warning")
         message.setText("A Critical Error occured")
         message.setInformativeText("What would you like to do?")
-        message.setIcon(QMessageBox.Critical)
+        message.setIcon(QMessageBox.Warning)
         message.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         message.setDefaultButton(QMessageBox.Ok)
         ret = message.exec()
@@ -49,15 +48,23 @@ class widget(QWidget):
             print("User have pressed OK")
         else:
             print("User have pressed Cancel")
+
     def button_clicked_critical(self):
-        QMessageBox.setWindowTitle("Hard")
+        ret = QMessageBox.warning(self, "Warning", "The command is not working properly", QMessageBox.Ok, QMessageBox.Cancel)
+        if ret == QMessageBox.Ok:
+            print("The user have pressed ok")
+        else:
+            print("The user have pressed cancel")
+
+
     def button_clicked_question(self):
         QMessageBox.setWindowTitle("Hard")
+
     def button_clicked_information(self):
         QMessageBox.setWindowTitle("Hard")
+
     def button_clicked_warning(self):
         QMessageBox.setWindowTitle("Hard")
+
     def button_clicked_about(self):
         QMessageBox.setWindowTitle("Hard")
-
-
