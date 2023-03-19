@@ -1,3 +1,5 @@
+
+"""
 import tkinter
 import sqlite3
 from sqlite3 import Connection
@@ -160,3 +162,15 @@ def ViewStaff():
 
 top.mainloop()
 conn.close()
+"""
+
+import sys
+from PySide6.QtWidgets import QApplication, QVBoxLayout, QLabel, QMainWindow, QPushButton, QWidget
+from RegForm import register
+
+app = QApplication(sys.argv)
+window = register()
+window.show()
+
+app.exec()
+
