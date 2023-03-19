@@ -40,7 +40,7 @@ class widget(QWidget):
         message.setWindowTitle("Critical Warning")
         message.setText("A Critical Error occured")
         message.setInformativeText("What would you like to do?")
-        message.setIcon(QMessageBox.Warning)
+        message.setIcon(QMessageBox.Information)
         message.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         message.setDefaultButton(QMessageBox.Ok)
         ret = message.exec()
@@ -50,7 +50,7 @@ class widget(QWidget):
             print("User have pressed Cancel")
 
     def button_clicked_critical(self):
-        ret = QMessageBox.warning(self, "Warning", "The command is not working properly", QMessageBox.Ok, QMessageBox.Cancel)
+        ret = QMessageBox.critical(self, "Warning", "The command is not working properly", QMessageBox.Ok, QMessageBox.Cancel)
         if ret == QMessageBox.Ok:
             print("The user have pressed ok")
         else:

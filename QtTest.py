@@ -12,7 +12,7 @@ class ButtonHolder(QMainWindow):
 """
 import sys
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QLabel, QMainWindow, QPushButton, QWidget
-from MessegeBox import widget
+from testfile import widget
 
 
 app = QApplication(sys.argv)

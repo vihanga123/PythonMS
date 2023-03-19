@@ -1,7 +1,7 @@
 import sys
 from PySide6.QtCore import QSize
 from PySide6.QtGui import QAction, QIcon
-from PySide6.QtWidgets import QSlider, QWidget, QPushButton, QVBoxLayout, QMainWindow, QToolBar, QStatusBar
+from PySide6.QtWidgets import QSlider, QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QMainWindow, QToolBar, QStatusBar, QLabel, QLineEdit
 
 """
 def button_clicked(data):
@@ -115,5 +115,58 @@ class MainWindow(QMainWindow):
         print("The button has been pressed")
         self.statusBar().showMessage("The button has been pressed",1000)
 """
+
+"""
+class widget(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Push Button")
+        button = QPushButton("Click here")
+        button.clicked.connect(self.buttonclicked)
+        button.pressed.connect(self.buttonpressed)
+        button.released.connect(self.buttonreleased)
+
+        layout = QVBoxLayout()
+        layout.addWidget(button)
+
+        self.setLayout(layout)
+
+    def buttonclicked(self):
+        print("Clicked")
+
+    def buttonpressed(self):
+        print("Pressed")
+
+    def buttonreleased(self):
+        print("released")
+"""
+
+class widget(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("The title")
+        label = QLabel("Enter Text: ")
+        self.line_edit = QLineEdit()
+        button = QPushButton("Click here")
+        button.clicked.connect(self.buttonclicked)
+        self.text_holder = QLabel("Configured")
+
+        h_layout = QHBoxLayout()
+        h_layout.addWidget(label)
+        h_layout.addWidget(self.line_edit)
+
+        v_layout = QVBoxLayout()
+        v_layout.addLayout(h_layout)
+        v_layout.addWidget(button)
+        v_layout.addWidget(self.text_holder)
+
+        self.setLayout(v_layout)
+
+    def buttonclicked(self):
+        print("The text is : ", self.line_edit.text())
+
+
 
 
