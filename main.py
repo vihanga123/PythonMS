@@ -177,6 +177,14 @@ conn.execute("CREATE TABLE IF NOT EXISTS Registration (id INTEGER PRIMARY KEY AU
 conn.commit()
 print("Database is running!")
 
+cursor = conn.cursor()
+
+cursor.execute("SELECT * FROM Registration")
+
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
 
 app = QApplication(sys.argv)
 window = register()
