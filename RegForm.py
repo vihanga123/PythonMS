@@ -1,4 +1,4 @@
-import sys
+
 import sqlite3
 from sqlite3 import Connection
 from PySide6.QtGui import Qt
@@ -81,7 +81,8 @@ class register(QWidget):
 
     def regbutton(self):
         conn.execute("INSERT INTO Registration (name,DOB,occupation,username,password) VALUES (?, ?, ?, ?, ?)",
-                     [self.usernameinput.text(), self.DOBinput.text(), self.Occupationinput.currentText(), self.usernameinput.text(), self.passwordinput.text()])
+                     [self.usernameinput.text(), self.DOBinput.text(), self.Occupationinput.currentText(),
+                      self.usernameinput.text(), self.passwordinput.text()])
         conn.commit()
         print("Student Registered Successfully")
 

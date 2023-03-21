@@ -168,7 +168,8 @@ import sys
 import sqlite3
 from sqlite3 import Connection
 from PySide6.QtWidgets import QApplication, QVBoxLayout, QLabel, QMainWindow, QPushButton, QWidget
-from RegForm import register
+#from RegForm import register
+from Login import stafflogin
 
 conn: Connection = sqlite3.connect('Main.db')
 
@@ -187,7 +188,7 @@ for row in rows:
     print(row)
 
 app = QApplication(sys.argv)
-window = register()
+window = stafflogin()
 window.show()
 
 app.exec()
