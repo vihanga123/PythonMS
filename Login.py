@@ -1,8 +1,10 @@
 import sqlite3
+import sys
 from sqlite3 import Connection
+from RegForm import register
 
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QApplication
 
 conn: Connection = sqlite3.connect('Main.db')
 
@@ -11,6 +13,7 @@ class stafflogin(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Staff Login")
+        self.setWindowFlag(Qt.WindowType.WindowDoesNotAcceptFocus)
         mainText = QLabel("Loginr")
         mainText.setAlignment(Qt.AlignCenter)
 
@@ -23,6 +26,9 @@ class stafflogin(QWidget):
 
         login = QPushButton("Login")
         login.clicked.connect(self.loginclicked)
+
+        register = QPushButton("Register")
+        register.clicked.connect(self.registerclicked)
 
         clear = QPushButton("Clear")
         clear.clicked.connect(self.clearclicked)
@@ -38,6 +44,7 @@ class stafflogin(QWidget):
         h_layout3 = QHBoxLayout()
         h_layout3.addWidget(login)
         h_layout3.addWidget(clear)
+        h_layout3.addWidget(register)
 
         v_layout = QVBoxLayout()
         v_layout.addLayout(h_layout)
@@ -53,10 +60,17 @@ class stafflogin(QWidget):
         if users is not None and users[0] == self.usernameInput.text():
             if users is not None and users[1] == self.passwordInput.text():
                 print("Login Successful")
+
+
         else:
             print("Login Failed")
 
     def clearclicked(self):
         self.usernameInput.clear()
         self.passwordInput.clear()
+
+    def registerclicked(self):
+        self.window = register()
+        self.window.show()
+
 
