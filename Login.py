@@ -2,6 +2,7 @@ import sqlite3
 import sys
 from sqlite3 import Connection
 from RegForm import register
+from menu import menu
 
 from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QApplication
@@ -12,6 +13,7 @@ conn: Connection = sqlite3.connect('Main.db')
 class stafflogin(QWidget):
     def __init__(self):
         super().__init__()
+        self.window = None
         self.setWindowTitle("Staff Login")
         self.setWindowFlag(Qt.WindowType.WindowDoesNotAcceptFocus)
         mainText = QLabel("Loginr")
@@ -60,6 +62,8 @@ class stafflogin(QWidget):
         if users is not None and users[0] == self.usernameInput.text():
             if users is not None and users[1] == self.passwordInput.text():
                 print("Login Successful")
+                self.window = menu()
+                self.window.show()
 
 
         else:
