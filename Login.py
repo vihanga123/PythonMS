@@ -3,7 +3,6 @@ import sys
 from sqlite3 import Connection
 from RegForm import register
 from menu import menu
-
 from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QApplication
 
