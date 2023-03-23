@@ -84,7 +84,7 @@ class register(QWidget):
                      [self.usernameinput.text(), self.DOBinput.text(), self.Occupationinput.currentText(),
                       self.usernameinput.text(), self.passwordinput.text()])
         conn.commit()
-        print("Student Registered Successfully")
+        print("Staff Registered Successfully")
 
 
 

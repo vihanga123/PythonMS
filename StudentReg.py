@@ -18,6 +18,7 @@ class studentReg(QWidget):
 
         age = QLabel("Student Age: ")
         self.ageinput = QLineEdit()
+        self.ageinput.setInputMask("##")
 
         address = QLabel("Address: ")
         self.addressinput = QLineEdit()
@@ -25,6 +26,12 @@ class studentReg(QWidget):
         telephone = QLabel("Telephone: ")
         self.telephoneinput = QLineEdit()
         self.telephoneinput.setInputMask("##########")
+
+        course = QLabel("Course: ")
+        self.courseinput = QComboBox()
+        self.courseinput.addItem("Software Engineer")
+        self.courseinput.addItem("Network Engineering")
+        self.courseinput.addItem("Application Development")
 
         registerbtn = QPushButton("Register Student")
         registerbtn.clicked.connect(self.register)
@@ -49,8 +56,12 @@ class studentReg(QWidget):
         H_layout4.addWidget(self.telephoneinput)
 
         H_layout5 = QHBoxLayout()
-        H_layout5.addWidget(registerbtn)
-        H_layout5.addWidget(clearbtn)
+        H_layout5.addWidget(course)
+        H_layout5.addWidget(self.courseinput)
+
+        H_layout6 = QHBoxLayout()
+        H_layout6.addWidget(registerbtn)
+        H_layout6.addWidget(clearbtn)
 
         V_layout = QVBoxLayout()
         V_layout.addWidget(mainText)
@@ -59,11 +70,16 @@ class studentReg(QWidget):
         V_layout.addLayout(H_layout3)
         V_layout.addLayout(H_layout4)
         V_layout.addLayout(H_layout5)
+        V_layout.addLayout(H_layout6)
 
         self.setLayout(V_layout)
 
     def register(self):
-        print("test")
+        conn.execute("INSERT INTO Student (name,age,address,telephone,course) VALUES (?, ?, ?, ?, ?)",
+                     [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
+                      self.telephoneinput.text(), self.courseinput.currentText()])
+        conn.commit()
+        print("Student Registered Successfully")
 
     def clear(self):
         self.nameinput.clear()
