@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Connection
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox, QMessageBox
 
 conn: Connection = sqlite3.connect('Main.db')
 
@@ -21,7 +21,6 @@ class studentremove(QWidget):
 
         for row in users:
             self.selectStudentInput.addItems(row)
-
 
         removebtn = QPushButton("Remove")
         removebtn.clicked.connect(self.remove)
@@ -44,9 +43,33 @@ class studentremove(QWidget):
 
         self.setLayout(V_layout)
 
-
     def remove(self):
-        print("Test")
+        conn.execute("DELETE FROM Student WHERE id=? ",
+                     [self.selectStudentInput.currentText()])
+        conn.commit()
+
+        print("Student has been removed Successfully")
+        self.selectStudentInput.clear()
+
+        cursor = conn.execute("SELECT CAST(id AS TEXT) FROM Student")
+        users = cursor.fetchall()
+
+        for row in users:
+            self.selectStudentInput.addItems(row)
 
     def showdetails(self):
-        print("Test")
+        cursor = conn.execute("SELECT * FROM Student WHERE id=?", [self.selectStudentInput.currentText()])
+        info = cursor.fetchone()
+        message = QMessageBox()
+        message.setMinimumSize(900, 200)
+        message.setWindowTitle("Student Information")
+        message.setText("ID: " + str(info[0]) + "\n" +
+                        "Name: " + str(info[1]) + "\n" +
+                        "Age: " + str(info[2]) + "\n" +
+                        "Address: " + str(info[3]) + "\n" +
+                        "Telephone: " + str(info[4]) + "\n" +
+                        "Course: " + str(info[5]) + "\n")
+
+        message.setIcon(QMessageBox.Information)
+        message.setStandardButtons(QMessageBox.Ok)
+        ret = message.exec()
