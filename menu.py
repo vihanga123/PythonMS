@@ -2,6 +2,7 @@ from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox
 
 from StudentReg import studentReg
+from StudentRemove import studentremove
 
 
 class menu(QWidget):
@@ -12,7 +13,7 @@ class menu(QWidget):
         addStudentbtn = QPushButton("Add a Student")
         addStudentbtn.clicked.connect(self.addStudent)
 
-        addGradesbtn = QPushButton("Add a Student")
+        addGradesbtn = QPushButton("Add Student Grades")
         addGradesbtn.clicked.connect(self.addGrades)
 
         removeStudentbtn = QPushButton("Remove a Student")
@@ -38,7 +39,8 @@ class menu(QWidget):
         self.window.show()
 
     def removeStudent(self):
-        print("test")
+        self.window = studentremove()
+        self.window.show()
 
     def showStudent(self):
         print("test")
