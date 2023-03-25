@@ -4,7 +4,7 @@ from sqlite3 import Connection
 from RegForm import register
 from menu import menu
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QApplication
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QMessageBox
 
 conn: Connection = sqlite3.connect('Main.db')
 
@@ -64,9 +64,14 @@ class stafflogin(QWidget):
                 self.window = menu()
                 self.window.show()
 
-
         else:
-            print("Login Failed")
+            message = QMessageBox()
+            message.setMinimumSize(900, 200)
+            message.setWindowTitle("Wrong Username or Password")
+            message.setText("The given Username or the Password is incorrect!")
+            message.setIcon(QMessageBox.Critical)
+            message.setStandardButtons(QMessageBox.Ok)
+            message.exec()
 
     def clearclicked(self):
         self.usernameInput.clear()

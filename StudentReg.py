@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Connection
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox, QMessageBox
 
 conn: Connection = sqlite3.connect('Main.db')
 
@@ -79,7 +79,13 @@ class studentReg(QWidget):
                      [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
                       self.telephoneinput.text(), self.courseinput.currentText()])
         conn.commit()
-        print("Student Registered Successfully")
+        message = QMessageBox()
+        message.setMinimumSize(900, 200)
+        message.setWindowTitle("Student has been Registered Successfully")
+        message.setText("The student has been added to the database!")
+        message.setIcon(QMessageBox.Information)
+        message.setStandardButtons(QMessageBox.Ok)
+        message.exec()
 
     def clear(self):
         self.nameinput.clear()

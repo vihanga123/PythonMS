@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Connection
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox, QMessageBox
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QHBoxLayout, QComboBox, QMessageBox
 
 conn: Connection = sqlite3.connect('Main.db')
 
@@ -48,7 +48,14 @@ class studentremove(QWidget):
                      [self.selectStudentInput.currentText()])
         conn.commit()
 
-        print("Student has been removed Successfully")
+        message = QMessageBox()
+        message.setMinimumSize(900, 200)
+        message.setWindowTitle("The Student has been Removed Successfully")
+        message.setText("The student has been removed from the database!")
+        message.setIcon(QMessageBox.Information)
+        message.setStandardButtons(QMessageBox.Ok)
+        message.exec()
+
         self.selectStudentInput.clear()
 
         cursor = conn.execute("SELECT CAST(id AS TEXT) FROM Student")
@@ -72,4 +79,4 @@ class studentremove(QWidget):
 
         message.setIcon(QMessageBox.Information)
         message.setStandardButtons(QMessageBox.Ok)
-        ret = message.exec()
+        message.exec()

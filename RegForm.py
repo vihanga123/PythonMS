@@ -2,7 +2,7 @@
 import sqlite3
 from sqlite3 import Connection
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox, QMessageBox
 
 conn: Connection = sqlite3.connect('Main.db')
 
@@ -84,7 +84,14 @@ class register(QWidget):
                      [self.usernameinput.text(), self.DOBinput.text(), self.Occupationinput.currentText(),
                       self.usernameinput.text(), self.passwordinput.text()])
         conn.commit()
-        print("Staff Registered Successfully")
+
+        message = QMessageBox()
+        message.setMinimumSize(900, 200)
+        message.setWindowTitle("Staff Member Registered Successfully")
+        message.setText("The member has been added to the database! \nPlease Login")
+        message.setIcon(QMessageBox.Information)
+        message.setStandardButtons(QMessageBox.Ok)
+        message.exec()
 
 
 
