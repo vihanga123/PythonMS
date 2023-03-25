@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEd
 from StudentReg import studentReg
 from StudentRemove import studentremove
 from StudentDetails import studentdetails
+from StaffDetails import staffdetails
 
 
 class menu(QWidget):
@@ -48,7 +49,8 @@ class menu(QWidget):
         self.window.show()
 
     def showStaff(self):
-        print("test")
+        self.window = staffdetails()
+        self.window.show()
 
     def addGrades(self):
         print("test")

@@ -11,12 +11,11 @@ class studentdetails(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Student Details Viewer")
-        mainText = QLabel("Student Registrationr")
+        mainText = QLabel("Student Details")
         mainText.setAlignment(Qt.AlignCenter)
 
         cursor = conn.execute("SELECT id FROM Student ORDER BY id DESC LIMIT 1;")
         info = cursor.fetchone()
-        s = 1
         cursor2 = conn.execute("SELECT * FROM Student")
         student = cursor2.fetchall()
 
@@ -29,6 +28,8 @@ class studentdetails(QWidget):
         self.table.setItem(0, 4, QtWidgets.QTableWidgetItem("Telephone"))
         self.table.setItem(0, 5, QtWidgets.QTableWidgetItem("Course"))
 
+        s = 1
+
         while s <= info[0]:
             t = 0
             while t <= 5:
@@ -37,6 +38,7 @@ class studentdetails(QWidget):
             s += 1
 
         Layout = QVBoxLayout()
+        Layout.addWidget(mainText)
         Layout.addWidget(self.table)
 
         self.setLayout(Layout)
