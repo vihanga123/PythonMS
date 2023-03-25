@@ -17,13 +17,8 @@ class studentdetails(QWidget):
         cursor = conn.execute("SELECT id FROM Student ORDER BY id DESC LIMIT 1;")
         info = cursor.fetchone()
         s = 1
-        t = 0
-
         cursor2 = conn.execute("SELECT * FROM Student")
         student = cursor2.fetchall()
-        print(student[1])
-
-        print(info[0])
 
         self.table = QTableWidget((info[0])+1,6)
 
@@ -35,9 +30,9 @@ class studentdetails(QWidget):
         self.table.setItem(0, 5, QtWidgets.QTableWidgetItem("Course"))
 
         while s <= info[0]:
+            t = 0
             while t <= 5:
                 self.table.setItem(s, t, QtWidgets.QTableWidgetItem(str(student[s-1][t])))
-                self.table.setItem(s, t, QtWidgets.QTableWidgetItem(str(student[s - 1][t])))
                 t += 1
             s += 1
 
