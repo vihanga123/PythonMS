@@ -5,6 +5,7 @@ from StudentReg import studentReg
 from StudentRemove import studentremove
 from StudentDetails import studentdetails
 from StaffDetails import staffdetails
+from StaffUpdate import staffupdate
 
 
 class menu(QWidget):
@@ -27,12 +28,16 @@ class menu(QWidget):
         showStaffbtn = QPushButton("Show Staff Details")
         showStaffbtn.clicked.connect(self.showStaff)
 
+        updateStaffbtn = QPushButton("Update Staff Details")
+        updateStaffbtn.clicked.connect(self.updateStaff)
+
         layout = QVBoxLayout()
         layout.addWidget(addStudentbtn)
         layout.addWidget(addGradesbtn)
         layout.addWidget(removeStudentbtn)
         layout.addWidget(showStudentbtn)
         layout.addWidget(showStaffbtn)
+        layout.addWidget(updateStaffbtn)
 
         self.setLayout(layout)
 
@@ -54,6 +59,11 @@ class menu(QWidget):
 
     def addGrades(self):
         print("test")
+
+    def updateStaff(self):
+        self.window = staffupdate()
+        self.window.show()
+
 
 
 
