@@ -6,6 +6,7 @@ from StudentRemove import studentremove
 from StudentDetails import studentdetails
 from StaffDetails import staffdetails
 from StaffUpdate import staffupdate
+from StudentUpdate import studentupdate
 
 
 class menu(QWidget):
@@ -31,6 +32,9 @@ class menu(QWidget):
         updateStaffbtn = QPushButton("Update Staff Details")
         updateStaffbtn.clicked.connect(self.updateStaff)
 
+        updateStudentbtn = QPushButton("Update Student Details")
+        updateStudentbtn.clicked.connect(self.updateStudent)
+
         layout = QVBoxLayout()
         layout.addWidget(addStudentbtn)
         layout.addWidget(addGradesbtn)
@@ -38,6 +42,7 @@ class menu(QWidget):
         layout.addWidget(showStudentbtn)
         layout.addWidget(showStaffbtn)
         layout.addWidget(updateStaffbtn)
+        layout.addWidget(updateStudentbtn)
 
         self.setLayout(layout)
 
@@ -62,6 +67,10 @@ class menu(QWidget):
 
     def updateStaff(self):
         self.window = staffupdate()
+        self.window.show()
+
+    def updateStudent(self):
+        self.window = studentupdate()
         self.window.show()
 
 
