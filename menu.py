@@ -7,6 +7,7 @@ from StudentDetails import studentdetails
 from StaffDetails import staffdetails
 from StaffUpdate import staffupdate
 from StudentUpdate import studentupdate
+from Grades import studentgrades
 
 
 class menu(QWidget):
@@ -63,7 +64,8 @@ class menu(QWidget):
         self.window.show()
 
     def addGrades(self):
-        print("test")
+        self.window = studentgrades()
+        self.window.show()
 
     def updateStaff(self):
         self.window = staffupdate()
