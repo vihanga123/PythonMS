@@ -25,6 +25,7 @@ class studentgrades(QWidget):
         #self.studentidinput.currentIndexChanged.connect(self.details)
 
         addgradesbtn = QPushButton("Add Grades")
+        addgradesbtn.clicked.connect(self.addgrades)
 
         H_layout = QHBoxLayout()
         H_layout.addWidget(studentid)
@@ -36,4 +37,26 @@ class studentgrades(QWidget):
         V_Layout.addWidget(addgradesbtn)
 
         self.setLayout(V_Layout)
+
+    def addgrades(self):
+        cursor = conn.execute("SELECT * FROM Student WHERE id=?", [self.studentidinput.currentText()])
+        info = cursor.fetchone()
+        message = QMessageBox()
+        message.setMinimumSize(900, 200)
+        message.setWindowTitle("Student Information")
+        message.setText("ID: " + str(info[0]) + "\n" +
+                        "Name: " + str(info[1]) + "\n" +
+                        "Age: " + str(info[2]) + "\n" +
+                        "Address: " + str(info[3]) + "\n" +
+                        "Telephone: " + str(info[4]) + "\n" +
+                        "Subject: " + str(info[5]) + "\n")
+
+        message.setIcon(QMessageBox.Information)
+        message.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        ok = message.button(QMessageBox.Ok)
+        ok.setText("Add Grades")
+        ret = message.exec()
+        if ret == QMessageBox.Ok:
+            print("Test")
+
 

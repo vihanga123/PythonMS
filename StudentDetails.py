@@ -14,7 +14,8 @@ class studentdetails(QWidget):
         mainText = QLabel("Student Details")
         mainText.setAlignment(Qt.AlignCenter)
 
-        cursor = conn.execute("SELECT id FROM Student ORDER BY id DESC LIMIT 1;")
+        cursor = conn.execute("SELECT count(*) FROM Student;")
+        #cursor = conn.execute("SELECT id FROM Student ORDER BY id DESC LIMIT 1;")
         info = cursor.fetchone()
         cursor2 = conn.execute("SELECT * FROM Student")
         student = cursor2.fetchall()

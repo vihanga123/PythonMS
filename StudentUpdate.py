@@ -93,7 +93,7 @@ class studentupdate(QWidget):
         self.setLayout(V_layout)
 
     def register(self):
-        conn.execute("Update Student SET name = ?,age = ?,address = ?,telephone = ?,course = ? WHERE id = ?",
+        conn.execute("Update Student SET name = ?,age = ?,address = ?,telephone = ?,subject = ? WHERE id = ?",
                      [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
                       self.telephoneinput.text(), self.courseinput.currentText(), self.studentidinput.currentText()])
         conn.commit()

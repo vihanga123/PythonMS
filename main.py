@@ -5,14 +5,21 @@ from PySide6.QtWidgets import QApplication, QVBoxLayout, QLabel, QMainWindow, QP
 from Login import stafflogin
 
 conn: Connection = sqlite3.connect('Main.db')
+conn.execute('PRAGMA foreign_keys = ON')
 
 conn.execute("CREATE TABLE IF NOT EXISTS Registration (id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,DOB DATE,occupation TEXT,username TEXT,password TEXT)")
 conn.execute("CREATE TABLE IF NOT EXISTS Student (id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,age INTEGER,address TEXT,telephone INTEGER,subject TEXT, FOREIGN KEY(subject) REFERENCES Subject(subject))")
 #conn.execute("DROP TABLE IF EXISTS Student")
 conn.execute("CREATE TABLE IF NOT EXISTS Subject (subject TEXT PRIMARY KEY)")
-conn.execute("CREATE TABLE IF NOT EXISTS SubjectModule (id INTEGER PRIMARY KEY AUTOINCREMENT,module TEXT, subject TEXT, FOREIGN KEY(subject) REFERENCES Subject(subject))")
+conn.execute("CREATE TABLE IF NOT EXISTS SubjectModule (id INTEGER PRIMARY KEY AUTOINCREMENT,module TEXT, subject TEXT, FOREIGN KEY(subject) REFERENCES Subjects(subjects))")
 
-conn.execute("INSERT INTO SubjectModule (module,subject) VALUES('','Software Engineering')")
+#conn.execute("INSERT INTO SubjectModule (module,subject) VALUES('Computer Technology','Application Development')")
+
+#Changes the auto increment value of the sequence to the amount of records in the student table.
+cursor = conn.execute("SELECT count(*) FROM Student;")
+info = cursor.fetchone()[0]
+
+conn.execute("UPDATE sqlite_sequence SET seq = ? WHERE name = ?", (info, "Student"))
 
 conn.commit()
 print("Database is running!")

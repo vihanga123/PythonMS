@@ -48,6 +48,11 @@ class studentremove(QWidget):
                      [self.selectStudentInput.currentText()])
         conn.commit()
 
+        # Changes the auto increment value of the sequence to the amount of records in the student table.
+        cursor = conn.execute("SELECT count(*) FROM Student;")
+        info = cursor.fetchone()[0]
+        conn.execute("UPDATE sqlite_sequence SET seq = ? WHERE name = ?", (info, "Student"))
+
         message = QMessageBox()
         message.setMinimumSize(900, 200)
         message.setWindowTitle("The Student has been Removed Successfully")
@@ -63,6 +68,8 @@ class studentremove(QWidget):
 
         for row in users:
             self.selectStudentInput.addItems(row)
+
+
 
     def showdetails(self):
         cursor = conn.execute("SELECT * FROM Student WHERE id=?", [self.selectStudentInput.currentText()])
