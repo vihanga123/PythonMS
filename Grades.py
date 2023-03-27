@@ -57,6 +57,14 @@ class studentgrades(QWidget):
         ok.setText("Add Grades")
         ret = message.exec()
         if ret == QMessageBox.Ok:
-            print("Test")
+            cursor = conn.execute("SELECT subject FROM Student WHERE id=?", [self.studentidinput.currentText()])
+            select = cursor.fetchone()[0]
+            if select == "Software Engineering":
+                print("SW")
+            elif select == "Network Engineering":
+                print("NE")
+            else:
+                print("AD")
+
 
 
