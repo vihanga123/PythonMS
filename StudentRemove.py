@@ -75,7 +75,7 @@ class studentremove(QWidget):
                         "Age: " + str(info[2]) + "\n" +
                         "Address: " + str(info[3]) + "\n" +
                         "Telephone: " + str(info[4]) + "\n" +
-                        "Course: " + str(info[5]) + "\n")
+                        "Subject: " + str(info[5]) + "\n")
 
         message.setIcon(QMessageBox.Information)
         message.setStandardButtons(QMessageBox.Ok)

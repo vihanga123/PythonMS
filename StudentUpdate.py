@@ -40,9 +40,9 @@ class studentupdate(QWidget):
         self.telephoneinput = QLineEdit()
         self.telephoneinput.setInputMask("##########")
 
-        course = QLabel("Course: ")
+        course = QLabel("Subject: ")
         self.courseinput = QComboBox()
-        self.courseinput.addItem("Software Engineer")
+        self.courseinput.addItem("Software Engineering")
         self.courseinput.addItem("Network Engineering")
         self.courseinput.addItem("Application Development")
 

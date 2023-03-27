@@ -27,9 +27,9 @@ class studentReg(QWidget):
         self.telephoneinput = QLineEdit()
         self.telephoneinput.setInputMask("##########")
 
-        course = QLabel("Course: ")
+        course = QLabel("Subject: ")
         self.courseinput = QComboBox()
-        self.courseinput.addItem("Software Engineer")
+        self.courseinput.addItem("Software Engineering")
         self.courseinput.addItem("Network Engineering")
         self.courseinput.addItem("Application Development")
 
@@ -75,7 +75,7 @@ class studentReg(QWidget):
         self.setLayout(V_layout)
 
     def register(self):
-        conn.execute("INSERT INTO Student (name,age,address,telephone,course) VALUES (?, ?, ?, ?, ?)",
+        conn.execute("INSERT INTO Student (name,age,address,telephone,subject) VALUES (?, ?, ?, ?, ?)",
                      [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
                       self.telephoneinput.text(), self.courseinput.currentText()])
         conn.commit()

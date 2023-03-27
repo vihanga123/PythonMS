@@ -26,7 +26,7 @@ class studentdetails(QWidget):
         self.table.setItem(0, 2, QtWidgets.QTableWidgetItem("Age"))
         self.table.setItem(0, 3, QtWidgets.QTableWidgetItem("Address"))
         self.table.setItem(0, 4, QtWidgets.QTableWidgetItem("Telephone"))
-        self.table.setItem(0, 5, QtWidgets.QTableWidgetItem("Course"))
+        self.table.setItem(0, 5, QtWidgets.QTableWidgetItem("Subject"))
 
         s = 1
 
