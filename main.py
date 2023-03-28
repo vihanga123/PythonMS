@@ -16,7 +16,7 @@ conn.execute("CREATE TABLE IF NOT EXISTS StudentGrade (sid INTEGER, mid INTEGER,
 
 #conn.execute("INSERT INTO StudentGrade (sid,mid,subject,grade) VALUES('1','9','Software Engineering','70')")
 
-cursor = conn.execute("SELECT * FROM StudentGrade")
+cursor = conn.execute("SELECT * FROM SubjectModule")
 all = cursor.fetchall()
 for row in all:
     print (row)

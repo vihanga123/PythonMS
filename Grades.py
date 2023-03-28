@@ -1,8 +1,12 @@
 import sqlite3
+import sys
 from sqlite3 import Connection
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QHBoxLayout, QComboBox, QMessageBox
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QHBoxLayout, QComboBox, QMessageBox, QLineEdit, QApplication
 
+from AD import ApplicationDevelopment
+from SE import SoftwareEngineering
+from NE import NetworkEngineering
 conn: Connection = sqlite3.connect('Main.db')
 
 
@@ -60,11 +64,21 @@ class studentgrades(QWidget):
             cursor = conn.execute("SELECT subject FROM Student WHERE id=?", [self.studentidinput.currentText()])
             select = cursor.fetchone()[0]
             if select == "Software Engineering":
-                print("SW")
+                self.Soften()
             elif select == "Network Engineering":
-                print("NE")
+                self.Neten()
             else:
-                print("AD")
+                self.Appdev()
 
+
+    def Soften(self):
+        self.window = SoftwareEngineering()
+        self.window.show()
+    def Neten(self):
+        self.window = NetworkEngineering()
+        self.window.show()
+    def Appdev(self):
+        self.window = ApplicationDevelopment()
+        self.window.show()
 
 
