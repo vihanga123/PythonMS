@@ -1,5 +1,4 @@
-from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox
+from PySide6.QtWidgets import QVBoxLayout, QPushButton, QWidget
 
 from StudentReg import studentReg
 from StudentRemove import studentremove
@@ -7,7 +6,8 @@ from StudentDetails import studentdetails
 from StaffDetails import staffdetails
 from StaffUpdate import staffupdate
 from StudentUpdate import studentupdate
-from Grades import studentgrades
+from Grades import grades
+from StudentGrades import studentgrades
 
 
 class menu(QWidget):
@@ -20,6 +20,9 @@ class menu(QWidget):
 
         addGradesbtn = QPushButton("Add Student Grades")
         addGradesbtn.clicked.connect(self.addGrades)
+
+        viewGradesbtn = QPushButton("View Student Grades")
+        viewGradesbtn.clicked.connect(self.viewGrades)
 
         removeStudentbtn = QPushButton("Remove a Student")
         removeStudentbtn.clicked.connect(self.removeStudent)
@@ -39,6 +42,7 @@ class menu(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(addStudentbtn)
         layout.addWidget(addGradesbtn)
+        layout.addWidget(viewGradesbtn)
         layout.addWidget(removeStudentbtn)
         layout.addWidget(showStudentbtn)
         layout.addWidget(showStaffbtn)
@@ -64,6 +68,10 @@ class menu(QWidget):
         self.window.show()
 
     def addGrades(self):
+        self.window = grades()
+        self.window.show()
+
+    def viewGrades(self):
         self.window = studentgrades()
         self.window.show()
 

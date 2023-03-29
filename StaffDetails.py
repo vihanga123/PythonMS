@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Connection
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox, QTableWidget
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QWidget, QTableWidget
 from PySide6 import QtWidgets
 
 conn: Connection = sqlite3.connect('Main.db')

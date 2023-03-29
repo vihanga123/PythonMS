@@ -79,6 +79,7 @@ class studentReg(QWidget):
                      [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
                       self.telephoneinput.text(), self.courseinput.currentText()])
         conn.commit()
+
         message = QMessageBox()
         message.setMinimumSize(900, 200)
         message.setWindowTitle("Student has been Registered Successfully")

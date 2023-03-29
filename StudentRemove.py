@@ -46,6 +46,8 @@ class studentremove(QWidget):
     def remove(self):
         conn.execute("DELETE FROM Student WHERE id=? ",
                      [self.selectStudentInput.currentText()])
+        conn.execute("DELETE FROM StudentGrade WHERE sid=? ",
+                     [self.selectStudentInput.currentText()])
         conn.commit()
 
         # Changes the auto increment value of the sequence to the amount of records in the student table.

@@ -21,6 +21,11 @@ all = cursor.fetchall()
 for row in all:
     print (row)
 
+cursor = conn.execute("SELECT * FROM StudentGrade")
+all1 = cursor.fetchall()
+for row1 in all1:
+    print (row1)
+
 #conn.execute("INSERT INTO SubjectModule (module,subject) VALUES('Computer Technology','Application Development')")
 
 #Changes the auto increment value of the sequence to the amount of records in the student table.
