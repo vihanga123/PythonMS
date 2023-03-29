@@ -16,16 +16,6 @@ conn.execute("CREATE TABLE IF NOT EXISTS StudentGrade (sid INTEGER, mid INTEGER,
 
 #conn.execute("INSERT INTO StudentGrade (sid,mid,subject,grade) VALUES('1','9','Software Engineering','70')")
 
-cursor = conn.execute("SELECT * FROM SubjectModule")
-all = cursor.fetchall()
-for row in all:
-    print (row)
-
-cursor = conn.execute("SELECT * FROM StudentGrade")
-all1 = cursor.fetchall()
-for row1 in all1:
-    print (row1)
-
 #conn.execute("INSERT INTO SubjectModule (module,subject) VALUES('Computer Technology','Application Development')")
 
 #Changes the auto increment value of the sequence to the amount of records in the student table.

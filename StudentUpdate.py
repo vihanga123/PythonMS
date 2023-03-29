@@ -9,9 +9,9 @@ conn: Connection = sqlite3.connect('Main.db')
 class studentupdate(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Register a Student")
+        self.setWindowTitle("Update Student")
 
-        mainText = QLabel("Student Registrationr")
+        mainText = QLabel("Update Student Details")
         mainText.setAlignment(Qt.AlignCenter)
 
         studentid = QLabel("Student ID: ")

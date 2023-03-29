@@ -10,7 +10,7 @@ class studentReg(QWidget):
         super().__init__()
         self.setWindowTitle("Register a Student")
 
-        mainText = QLabel("Student Registrationr")
+        mainText = QLabel("Student Registration")
         mainText.setAlignment(Qt.AlignCenter)
 
         name = QLabel("Student Name: ")
