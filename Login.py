@@ -1,5 +1,4 @@
 import sqlite3
-import sys
 from sqlite3 import Connection
 from RegForm import register
 from menu import menu
@@ -7,7 +6,6 @@ from PySide6.QtGui import Qt
 from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QLineEdit, QHBoxLayout, QMessageBox
 
 conn: Connection = sqlite3.connect('Main.db')
-
 
 class stafflogin(QWidget):
     def __init__(self):
@@ -54,6 +52,7 @@ class stafflogin(QWidget):
 
         self.setLayout(v_layout)
 
+# Checks and verify whether the logins in staff table matches to the given user inputs
     def loginclicked(self):
         cursor = conn.execute("SELECT username,password FROM Registration WHERE username=? AND password=? ", [self.usernameInput.text(), self.passwordInput.text()])
         users = cursor.fetchone()
@@ -64,6 +63,7 @@ class stafflogin(QWidget):
                 self.window = menu()
                 self.window.show()
 
+# Shows a Messagebox if the user entered incorrect logins
         else:
             message = QMessageBox()
             message.setMinimumSize(900, 200)
@@ -73,10 +73,12 @@ class stafflogin(QWidget):
             message.setStandardButtons(QMessageBox.Ok)
             message.exec()
 
+# Clears the user inputs
     def clearclicked(self):
         self.usernameInput.clear()
         self.passwordInput.clear()
 
+# Opens the RegForm window
     def registerclicked(self):
         self.window = register()
         self.window.show()

@@ -14,12 +14,13 @@ class studentdetails(QWidget):
         mainText = QLabel("Student Details")
         mainText.setAlignment(Qt.AlignCenter)
 
+        #Grabs the count of the available rows in Student table
         cursor = conn.execute("SELECT count(*) FROM Student;")
-        #cursor = conn.execute("SELECT id FROM Student ORDER BY id DESC LIMIT 1;")
         info = cursor.fetchone()
         cursor2 = conn.execute("SELECT * FROM Student")
         student = cursor2.fetchall()
 
+        # Creates a Qt table with the given amount of columns and rows
         self.table = QTableWidget((info[0])+1,6)
 
         self.table.setItem(0, 0, QtWidgets.QTableWidgetItem("ID"))
@@ -29,8 +30,8 @@ class studentdetails(QWidget):
         self.table.setItem(0, 4, QtWidgets.QTableWidgetItem("Telephone"))
         self.table.setItem(0, 5, QtWidgets.QTableWidgetItem("Subject"))
 
+        # Pulls data from the database and arrange them accordingly as given in the table
         s = 1
-
         while s <= info[0]:
             t = 0
             while t <= 5:

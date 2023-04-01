@@ -16,9 +16,11 @@ class studentremove(QWidget):
 
         selectStudent = QLabel("Select Student ID: ")
         self.selectStudentInput = QComboBox()
+        # Takes the ID's of Students as String from the Student table.
         cursor = conn.execute("SELECT CAST(id AS TEXT) FROM Student")
         users = cursor.fetchall()
 
+        # Copies the ID's taken from the database into the combobox.
         for row in users:
             self.selectStudentInput.addItems(row)
 
@@ -44,8 +46,11 @@ class studentremove(QWidget):
         self.setLayout(V_layout)
 
     def remove(self):
+        # Deletes the records from the Student table where the ID matches as given.
         conn.execute("DELETE FROM Student WHERE id=? ",
                      [self.selectStudentInput.currentText()])
+
+        # Deletes the records from the StudentGrade table where the ID matches as given.
         conn.execute("DELETE FROM StudentGrade WHERE sid=? ",
                      [self.selectStudentInput.currentText()])
         conn.commit()

@@ -17,12 +17,15 @@ class studentgrades(QWidget):
         self.studentidinput = QComboBox()
         self.studentidinput.addItem(" ")
 
+        #Takes id's from Student table as String values
         cursor = conn.execute("SELECT CAST(id AS TEXT) FROM Student")
         students = cursor.fetchall()
 
+        # Adds the values to the combobox.
         for row in students:
             self.studentidinput.addItems(row)
 
+        # Performs the given function whenever the input value gets changed
         self.studentidinput.currentIndexChanged.connect(self.studentgrades)
 
         self.info = QLabel()
@@ -40,9 +43,9 @@ class studentgrades(QWidget):
         self.setLayout(V_layout)
 
     def studentgrades(self):
+        # Try catch statement to show a message box if user's grades are not added into the database
         try:
-            maincursor = conn.execute("SELECT name,subject FROM Student WHERE id=?",
-                                      [self.studentidinput.currentText()])
+            maincursor = conn.execute("SELECT name,subject FROM Student WHERE id=?", [self.studentidinput.currentText()])
             sub = maincursor.fetchone()
 
             cursor = conn.execute("SELECT module FROM SubjectModule WHERE subject=?", [sub[1]])
@@ -51,6 +54,7 @@ class studentgrades(QWidget):
             cursor2 = conn.execute("SELECT grade FROM StudentGrade WHERE sid=?", [self.studentidinput.currentText()])
             grade = cursor2.fetchall()
 
+            # Info label values changes accordingly.
             self.info.setText("Name: " + str(sub[0]) + "\n" +
                               "Subject: " + str(sub[1]) + "\n" +
                               str(mod[0]) + " " + str(grade[0]) + "\n" +

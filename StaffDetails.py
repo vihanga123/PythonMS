@@ -14,6 +14,7 @@ class staffdetails(QWidget):
         maintext = QLabel("Staff Details")
         maintext.setAlignment(Qt.AlignCenter)
 
+        # Grabs the count of the available rows in the table Registration.
         cursor = conn.execute("SELECT id FROM Registration ORDER BY id DESC LIMIT 1;")
         info = cursor.fetchone()
         cursor2 = conn.execute("SELECT * FROM Registration")
@@ -21,13 +22,14 @@ class staffdetails(QWidget):
 
         self.table = QTableWidget((info[0]) + 1, 4)
 
+        # Row with the column names of the table
         self.table.setItem(0, 0, QtWidgets.QTableWidgetItem("ID"))
         self.table.setItem(0, 1, QtWidgets.QTableWidgetItem("Name"))
         self.table.setItem(0, 2, QtWidgets.QTableWidgetItem("Date of Birth"))
         self.table.setItem(0, 3, QtWidgets.QTableWidgetItem("Occupation"))
 
+        # Pulls data from the database and arrange them accordingly as given in the table
         s = 1
-
         while s <= info[0]:
             t = 0
             while t <= 3:

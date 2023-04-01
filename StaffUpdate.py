@@ -17,14 +17,14 @@ class staffupdate(QWidget):
         self.staffidinput = QComboBox()
         self.staffidinput.addItem(" ")
 
+        # Grabs the IDs from the staff table as String
         cursor = conn.execute("SELECT CAST(id AS TEXT) FROM Registration")
         staff = cursor.fetchall()
-
         for row in staff:
             self.staffidinput.addItems(row)
 
+        # Performs the given function whenever the input value gets changed
         self.staffidinput.currentIndexChanged.connect(self.details)
-
 
         name = QLabel("Name: ")
         self.Nameinput = QLineEdit()
@@ -96,6 +96,7 @@ class staffupdate(QWidget):
         self.usernameinput.clear()
         self.passwordinput.clear()
 
+    # Updates the Registration tables with the inputs given.
     def updatebutton(self):
         conn.execute("UPDATE Registration SET name = ?,DOB = ?,occupation = ?,username = ?,password = ? WHERE id = ?",
                      [self.Nameinput.text(), self.DOBinput.text(), self.Occupationinput.currentText(),
@@ -111,6 +112,7 @@ class staffupdate(QWidget):
         message.exec()
 
     def details(self):
+        # Once the Staff ID is selected, the function will grab the details of the staff member and copy in the inputs
         if not self.staffidinput == " ":
             cursor = conn.execute("SELECT * FROM Registration WHERE id=?", [self.staffidinput.currentText()])
             info = cursor.fetchall()

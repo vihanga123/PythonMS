@@ -18,6 +18,7 @@ class studentupdate(QWidget):
         self.studentidinput = QComboBox()
         self.studentidinput.addItem(" ")
 
+        # Takes the Student table IDs as String
         cursor = conn.execute("SELECT CAST(id AS TEXT) FROM Student")
         students = cursor.fetchall()
 
@@ -93,6 +94,7 @@ class studentupdate(QWidget):
         self.setLayout(V_layout)
 
     def register(self):
+        # Updates the Student table accordingly with the taken user inputs
         conn.execute("Update Student SET name = ?,age = ?,address = ?,telephone = ?,subject = ? WHERE id = ?",
                      [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
                       self.telephoneinput.text(), self.courseinput.currentText(), self.studentidinput.currentText()])
@@ -113,6 +115,7 @@ class studentupdate(QWidget):
         self.telephoneinput.clear()
 
     def details(self):
+        # Once the Student ID is selected, the function will grab the details of the staff member and copy in the inputs
         if not self.studentidinput == " ":
             cursor = conn.execute("SELECT * FROM Student WHERE id=?", [self.studentidinput.currentText()])
             info = cursor.fetchall()

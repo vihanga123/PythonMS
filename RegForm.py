@@ -79,6 +79,7 @@ class register(QWidget):
         self.usernameinput.clear()
         self.passwordinput.clear()
 
+# Records the user input details into the Registration table
     def regbutton(self):
         conn.execute("INSERT INTO Registration (name,DOB,occupation,username,password) VALUES (?, ?, ?, ?, ?)",
                      [self.Nameinput.text(), self.DOBinput.text(), self.Occupationinput.currentText(),

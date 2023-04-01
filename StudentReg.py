@@ -75,6 +75,7 @@ class studentReg(QWidget):
         self.setLayout(V_layout)
 
     def register(self):
+        # Adds the given values into the Student table and shows a Messagebox.
         conn.execute("INSERT INTO Student (name,age,address,telephone,subject) VALUES (?, ?, ?, ?, ?)",
                      [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
                       self.telephoneinput.text(), self.courseinput.currentText()])
