@@ -1,7 +1,8 @@
 import sqlite3
 from sqlite3 import Connection
 from PySide6.QtGui import Qt
-from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QHBoxLayout, QComboBox, QMessageBox, QLineEdit, QApplication
+from PySide6.QtWidgets import QVBoxLayout, QLabel, QPushButton, QWidget, QHBoxLayout, QComboBox, QMessageBox, QLineEdit, \
+    QApplication
 
 conn: Connection = sqlite3.connect('Main.db')
 
@@ -24,8 +25,6 @@ class grades(QWidget):
             self.studentidinput.addItems(row)
 
         self.studentidinput.currentIndexChanged.connect(self.studentdetails)
-
-        #self.studentidinput.currentIndexChanged.connect(self.details)
 
         self.studentinfo = QLabel()
 
@@ -64,7 +63,6 @@ class grades(QWidget):
         H_layout3.addWidget(self.subject3)
         H_layout3.addWidget(self.subject3input)
 
-
         V_Layout = QVBoxLayout()
         V_Layout.addWidget(maintitle)
         V_Layout.addLayout(H_layout)
@@ -77,6 +75,7 @@ class grades(QWidget):
         self.setLayout(V_Layout)
 
     def addgrades(self):
+
         maincursor = conn.execute("SELECT subject FROM Student WHERE id=?", [self.studentidinput.currentText()])
         sub = maincursor.fetchone()[0]
         cursor = conn.execute("SELECT id FROM SubjectModule WHERE module=?", [self.subject1.text()])
@@ -85,29 +84,54 @@ class grades(QWidget):
         mod2 = cursor1.fetchone()[0]
         cursor2 = conn.execute("SELECT id FROM SubjectModule WHERE module=?", [self.subject3.text()])
         mod3 = cursor2.fetchone()[0]
+        try:
+            if self.subject1input.text() == "" or self.subject2input.text() == "" or self.subject3input.text() == "":
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Fill all data")
+                message.setText("Please fill all the module grades!")
+                message.setIcon(QMessageBox.Critical)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
+            elif int(self.subject1input.text()) >= 101 or int(self.subject2input.text()) >= 101 or int(self.subject3input.text()) >= 101:
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Invalid input")
+                message.setText("Grades cannot be above 100 marks")
+                message.setIcon(QMessageBox.Critical)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
+            else:
+                conn.execute("INSERT INTO StudentGrade (sid,mid,subject,grade) VALUES (?, ?, ?, ?)",
+                         [self.studentidinput.currentText(), mod1, sub, self.subject1input.text()])
+                conn.execute("INSERT INTO StudentGrade (sid,mid,subject,grade) VALUES (?, ?, ?, ?)",
+                         [self.studentidinput.currentText(), mod2, sub, self.subject2input.text()])
+                conn.execute("INSERT INTO StudentGrade (sid,mid,subject,grade) VALUES (?, ?, ?, ?)",
+                         [self.studentidinput.currentText(), mod3, sub, self.subject3input.text()])
+                conn.commit()
 
-        conn.execute("INSERT INTO StudentGrade (sid,mid,subject,grade) VALUES (?, ?, ?, ?)",
-                     [self.studentidinput.currentText(), mod1, sub, self.subject1input.text()])
-        conn.execute("INSERT INTO StudentGrade (sid,mid,subject,grade) VALUES (?, ?, ?, ?)",
-                     [self.studentidinput.currentText(), mod2, sub, self.subject2input.text()])
-        conn.execute("INSERT INTO StudentGrade (sid,mid,subject,grade) VALUES (?, ?, ?, ?)",
-                     [self.studentidinput.currentText(), mod3, sub, self.subject3input.text()])
-        conn.commit()
-
-        message = QMessageBox()
-        message.setMinimumSize(900, 200)
-        message.setWindowTitle("Student Grades are stored")
-        message.setText("The student grades have been stored!")
-        message.setIcon(QMessageBox.Information)
-        message.setStandardButtons(QMessageBox.Ok)
-        message.exec()
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Student Grades are stored")
+                message.setText("The student grades have been stored!")
+                message.setIcon(QMessageBox.Information)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
+        except:
+            message = QMessageBox()
+            message.setMinimumSize(900, 200)
+            message.setWindowTitle("Error occurred")
+            message.setText("An error has occurred. Please try again later.")
+            message.setIcon(QMessageBox.Critical)
+            message.setStandardButtons(QMessageBox.Ok)
+            message.exec()
 
     def studentdetails(self):
         cursor = conn.execute("SELECT * FROM Student WHERE id=?", [self.studentidinput.currentText()])
         info = cursor.fetchone()
         self.studentinfo.setText("ID: " + str(info[0]) + "\n" +
-                                "Name: " + str(info[1]) + "\n" +
-                                "Subject: " + str(info[5]) + "\n")
+                                 "Name: " + str(info[1]) + "\n" +
+                                 "Subject: " + str(info[5]) + "\n")
 
         cursor = conn.execute("SELECT subject FROM Student WHERE id=?", [self.studentidinput.currentText()])
         select = cursor.fetchone()[0]
