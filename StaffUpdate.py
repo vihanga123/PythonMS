@@ -98,18 +98,48 @@ class staffupdate(QWidget):
 
     # Updates the Registration tables with the inputs given.
     def updatebutton(self):
-        conn.execute("UPDATE Registration SET name = ?,DOB = ?,occupation = ?,username = ?,password = ? WHERE id = ?",
-                     [self.Nameinput.text(), self.DOBinput.text(), self.Occupationinput.currentText(),
-                      self.usernameinput.text(), self.passwordinput.text(), self.staffidinput.currentText()])
-        conn.commit()
+        try:
+            if len(self.Nameinput.text()) == 0 or len(self.DOBinput.text()) <= 5 or len(self.usernameinput.text()) == 0 or len(self.passwordinput.text()) == 0:
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Empty Fields")
+                message.setText("All the fields have to be filled!")
+                message.setIcon(QMessageBox.Critical)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
 
-        message = QMessageBox()
-        message.setMinimumSize(900, 200)
-        message.setWindowTitle("Staff Member Updated Successfully")
-        message.setText("The member has been updated!")
-        message.setIcon(QMessageBox.Information)
-        message.setStandardButtons(QMessageBox.Ok)
-        message.exec()
+            elif len(self.usernameinput.text()) <= 6 or len(self.passwordinput.text()) <= 6:
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Invalid Registration")
+                message.setText("User name and Password have to be more than 6 characters!")
+                message.setIcon(QMessageBox.Critical)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
+
+            else:
+                conn.execute(
+                    "UPDATE Registration SET name = ?,DOB = ?,occupation = ?,username = ?,password = ? WHERE id = ?",
+                    [self.Nameinput.text(), self.DOBinput.text(), self.Occupationinput.currentText(),
+                     self.usernameinput.text(), self.passwordinput.text(), self.staffidinput.currentText()])
+                conn.commit()
+
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Staff Member Updated Successfully")
+                message.setText("The member has been updated!")
+                message.setIcon(QMessageBox.Information)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
+        except:
+            message = QMessageBox()
+            message.setMinimumSize(900, 200)
+            message.setWindowTitle("Error occurred")
+            message.setText("An error has occurred. Please try again later.")
+            message.setIcon(QMessageBox.Critical)
+            message.setStandardButtons(QMessageBox.Ok)
+            message.exec()
+
 
     def details(self):
         # Once the Staff ID is selected, the function will grab the details of the staff member and copy in the inputs
