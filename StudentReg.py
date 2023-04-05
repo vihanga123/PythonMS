@@ -75,19 +75,39 @@ class studentReg(QWidget):
         self.setLayout(V_layout)
 
     def register(self):
-        # Adds the given values into the Student table and shows a Messagebox.
-        conn.execute("INSERT INTO Student (name,age,address,telephone,subject) VALUES (?, ?, ?, ?, ?)",
-                     [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
-                      self.telephoneinput.text(), self.courseinput.currentText()])
-        conn.commit()
+        try:
+            if len(self.nameinput.text()) == 0 or len(self.ageinput.text()) == 0 or len(self.addressinput.text()) == 0 or len(self.telephoneinput.text()) <= 8:
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Empty Fields")
+                message.setText("All the fields have to be filled!")
+                message.setIcon(QMessageBox.Critical)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
 
-        message = QMessageBox()
-        message.setMinimumSize(900, 200)
-        message.setWindowTitle("Student has been Registered Successfully")
-        message.setText("The student has been added to the database!")
-        message.setIcon(QMessageBox.Information)
-        message.setStandardButtons(QMessageBox.Ok)
-        message.exec()
+            else:
+                # Adds the given values into the Student table and shows a Messagebox.
+                conn.execute("INSERT INTO Student (name,age,address,telephone,subject) VALUES (?, ?, ?, ?, ?)",
+                             [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
+                              self.telephoneinput.text(), self.courseinput.currentText()])
+                conn.commit()
+
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Student has been Registered Successfully")
+                message.setText("The student has been added to the database!")
+                message.setIcon(QMessageBox.Information)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
+        except:
+            message = QMessageBox()
+            message.setMinimumSize(900, 200)
+            message.setWindowTitle("Error occurred")
+            message.setText("An error has occurred. Please try again later.")
+            message.setIcon(QMessageBox.Critical)
+            message.setStandardButtons(QMessageBox.Ok)
+            message.exec()
+
 
     def clear(self):
         self.nameinput.clear()

@@ -47,8 +47,8 @@ class studentupdate(QWidget):
         self.courseinput.addItem("Network Engineering")
         self.courseinput.addItem("Application Development")
 
-        registerbtn = QPushButton("Register Student")
-        registerbtn.clicked.connect(self.register)
+        updatebtn = QPushButton("Update Student")
+        updatebtn.clicked.connect(self.update)
 
         clearbtn = QPushButton("Clear")
         clearbtn.clicked.connect(self.clear)
@@ -78,7 +78,7 @@ class studentupdate(QWidget):
         H_layout5.addWidget(self.courseinput)
 
         H_layout6 = QHBoxLayout()
-        H_layout6.addWidget(registerbtn)
+        H_layout6.addWidget(updatebtn)
         H_layout6.addWidget(clearbtn)
 
         V_layout = QVBoxLayout()
@@ -93,20 +93,41 @@ class studentupdate(QWidget):
 
         self.setLayout(V_layout)
 
-    def register(self):
-        # Updates the Student table accordingly with the taken user inputs
-        conn.execute("Update Student SET name = ?,age = ?,address = ?,telephone = ?,subject = ? WHERE id = ?",
-                     [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
-                      self.telephoneinput.text(), self.courseinput.currentText(), self.studentidinput.currentText()])
-        conn.commit()
+    def update(self):
+        try:
+            if len(self.nameinput.text()) == 0 or len(self.ageinput.text()) == 0 or len(self.addressinput.text()) == 0 or len(self.telephoneinput.text()) <= 8:
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Empty Fields")
+                message.setText("All the fields have to be filled!")
+                message.setIcon(QMessageBox.Critical)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
 
-        message = QMessageBox()
-        message.setMinimumSize(900, 200)
-        message.setWindowTitle("Student has been Updated")
-        message.setText("The student record has been updated successfully")
-        message.setIcon(QMessageBox.Information)
-        message.setStandardButtons(QMessageBox.Ok)
-        message.exec()
+            else:
+                # Updates the Student table accordingly with the taken user inputs
+                conn.execute("Update Student SET name = ?,age = ?,address = ?,telephone = ?,subject = ? WHERE id = ?",
+                             [self.nameinput.text(), self.ageinput.text(), self.addressinput.text(),
+                              self.telephoneinput.text(), self.courseinput.currentText(),
+                              self.studentidinput.currentText()])
+                conn.commit()
+
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Student has been Updated")
+                message.setText("The student record has been updated successfully")
+                message.setIcon(QMessageBox.Information)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
+        except:
+            message = QMessageBox()
+            message.setMinimumSize(900, 200)
+            message.setWindowTitle("Error occurred")
+            message.setText("An error has occurred. Please try again later.")
+            message.setIcon(QMessageBox.Critical)
+            message.setStandardButtons(QMessageBox.Ok)
+            message.exec()
+
 
     def clear(self):
         self.nameinput.clear()
