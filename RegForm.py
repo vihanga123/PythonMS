@@ -81,18 +81,46 @@ class register(QWidget):
 
 # Records the user input details into the Registration table
     def regbutton(self):
-        conn.execute("INSERT INTO Registration (name,DOB,occupation,username,password) VALUES (?, ?, ?, ?, ?)",
-                     [self.Nameinput.text(), self.DOBinput.text(), self.Occupationinput.currentText(),
-                      self.usernameinput.text(), self.passwordinput.text()])
-        conn.commit()
+        try:
+            if len(self.Nameinput.text()) == 0 or len(self.DOBinput.text()) <= 5 or len(self.usernameinput.text()) == 0 or len(self.passwordinput.text()) == 0:
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Empty Fields")
+                message.setText("All the fields have to be filled!")
+                message.setIcon(QMessageBox.Critical)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
 
-        message = QMessageBox()
-        message.setMinimumSize(900, 200)
-        message.setWindowTitle("Staff Member Registered Successfully")
-        message.setText("The member has been added to the database! \nPlease Login")
-        message.setIcon(QMessageBox.Information)
-        message.setStandardButtons(QMessageBox.Ok)
-        message.exec()
+            elif len(self.usernameinput.text()) <= 6 or len(self.passwordinput.text()) <= 6:
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Invalid Registration")
+                message.setText("User name and Password have to be more than 6 characters!")
+                message.setIcon(QMessageBox.Critical)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
+
+            else:
+                conn.execute("INSERT INTO Registration (name,DOB,occupation,username,password) VALUES (?, ?, ?, ?, ?)",
+                         [self.Nameinput.text(), self.DOBinput.text(), self.Occupationinput.currentText(),
+                          self.usernameinput.text(), self.passwordinput.text()])
+                conn.commit()
+
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Staff Member Registered Successfully")
+                message.setText("The member has been added to the database! \nPlease Login")
+                message.setIcon(QMessageBox.Information)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
+        except:
+            message = QMessageBox()
+            message.setMinimumSize(900, 200)
+            message.setWindowTitle("Error occurred")
+            message.setText("An error has occurred. Please try again later.")
+            message.setIcon(QMessageBox.Critical)
+            message.setStandardButtons(QMessageBox.Ok)
+            message.exec()
 
 
 

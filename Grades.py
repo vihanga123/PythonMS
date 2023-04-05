@@ -85,7 +85,7 @@ class grades(QWidget):
         cursor2 = conn.execute("SELECT id FROM SubjectModule WHERE module=?", [self.subject3.text()])
         mod3 = cursor2.fetchone()[0]
         try:
-            if self.subject1input.text() == "" or self.subject2input.text() == "" or self.subject3input.text() == "":
+            if (len(self.subject1input.text())) == 0 or (len(self.subject2input.text())) == 0 or (len(self.subject3input.text())) == 0:
                 message = QMessageBox()
                 message.setMinimumSize(900, 200)
                 message.setWindowTitle("Fill all data")
