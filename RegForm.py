@@ -23,8 +23,10 @@ class register(QWidget):
 
         Occupation = QLabel("Occupation: ")
         self.Occupationinput = QComboBox()
-        self.Occupationinput.addItem("Software Engineer")
-        self.Occupationinput.addItem("Clerk")
+        self.Occupationinput.addItem("Owner")
+        self.Occupationinput.addItem("IT Security")
+        self.Occupationinput.addItem("Moderator")
+        self.Occupationinput.addItem("Member")
 
         username = QLabel("Username: ")
         self.usernameinput = QLineEdit()
