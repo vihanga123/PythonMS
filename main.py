@@ -17,6 +17,8 @@ conn.execute("CREATE TABLE IF NOT EXISTS Student (id INTEGER PRIMARY KEY AUTOINC
 conn.execute("CREATE TABLE IF NOT EXISTS Subject (subject TEXT PRIMARY KEY)")
 conn.execute("CREATE TABLE IF NOT EXISTS SubjectModule (id INTEGER PRIMARY KEY AUTOINCREMENT,module TEXT, subject TEXT, FOREIGN KEY(subject) REFERENCES Subject(subject))")
 conn.execute("CREATE TABLE IF NOT EXISTS StudentGrade (sid INTEGER, mid INTEGER, subject TEXT, grade TEXT, FOREIGN KEY(subject) REFERENCES Subject(subject),FOREIGN KEY(mid) REFERENCES SubjectModule(id),FOREIGN KEY(sid) REFERENCES Student(id))")
+conn.execute("CREATE TABLE IF NOT EXISTS Roles (roleid INTEGER PRIMARY KEY AUTOINCREMENT, role TEXT)")
+conn.execute("CREATE TABLE IF NOT EXISTS StaffRoles (staffid INTEGER, roleid INTEGER, FOREIGN KEY(staffid) REFERENCES Registration(id), FOREIGN KEY(roleid) REFERENCES Roles(roleid))")
 
 # Adds the necessary data into the table (if not already exists)
 conn.execute("UPDATE sqlite_sequence SET seq = ? WHERE name = ?", ('0', "SubjectModule"))
