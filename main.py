@@ -8,11 +8,11 @@ from Login import stafflogin
 # Database creation
 conn: Connection = sqlite3.connect('Main.db')
 
-# Enables SQlite foreign key otherwise default disabled
+# Enables SQlite foreign key constraints otherwise disabled by default
 conn.execute('PRAGMA foreign_keys = ON')
 
 # Table creation (if not already exists)
-conn.execute("CREATE TABLE IF NOT EXISTS Registration (id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,DOB DATE,occupation TEXT,username TEXT,password TEXT)")
+conn.execute("CREATE TABLE IF NOT EXISTS Registration (id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,DOB DATE,roleid TEXT,username TEXT,password TEXT)")
 conn.execute("CREATE TABLE IF NOT EXISTS Student (id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,age INTEGER,address TEXT,telephone INTEGER,subject TEXT, FOREIGN KEY(subject) REFERENCES Subject(subject))")
 conn.execute("CREATE TABLE IF NOT EXISTS Subject (subject TEXT PRIMARY KEY)")
 conn.execute("CREATE TABLE IF NOT EXISTS SubjectModule (id INTEGER PRIMARY KEY AUTOINCREMENT,module TEXT, subject TEXT, FOREIGN KEY(subject) REFERENCES Subject(subject))")
@@ -22,6 +22,11 @@ conn.execute("CREATE TABLE IF NOT EXISTS StaffRoles (staffid INTEGER, roleid INT
 
 # Adds the necessary data into the table (if not already exists)
 conn.execute("UPDATE sqlite_sequence SET seq = ? WHERE name = ?", ('0', "SubjectModule"))
+conn.execute("INSERT OR IGNORE INTO Roles(role) VALUES(?)", ["Owner"])
+conn.execute("INSERT OR IGNORE INTO Roles(role) VALUES(?)", ["IT Security"])
+conn.execute("INSERT OR IGNORE INTO Roles(role) VALUES(?)", ["Moderator"])
+conn.execute("INSERT OR IGNORE INTO Roles(role) VALUES(?)", ["Member"])
+conn.execute("INSERT OR IGNORE INTO Roles(role) VALUES(?)", ["Guest"])
 conn.commit()
 
 x = 0

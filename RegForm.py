@@ -27,6 +27,7 @@ class register(QWidget):
         self.Occupationinput.addItem("IT Security")
         self.Occupationinput.addItem("Moderator")
         self.Occupationinput.addItem("Member")
+        self.Occupationinput.addItem("Guest")
 
         username = QLabel("Username: ")
         self.usernameinput = QLineEdit()
