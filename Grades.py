@@ -127,6 +127,31 @@ class grades(QWidget):
             message.exec()
 
     def studentdetails(self):
+
+        # Once the Student ID is selected, the function will grab the details of the grades and copy in the fields
+        if not self.studentidinput == " ":
+            cursor = conn.execute("SELECT * FROM StudentGrade WHERE sid=?", [self.studentidinput.currentText()])
+            info = cursor.fetchall()
+            for row in info:
+                self.subject1input.setText(str(info[0][3]))
+                self.subject2input.setText(str(info[1][3]))
+                self.subject3input.setText(str(info[2][3]))
+
+        try:
+            # Show a messagebox telling the grades of the users are already added
+            checkid = conn.execute("SELECT sid FROM StudentGrade WHERE sid=?", [self.studentidinput.currentText()])
+            sub = str(checkid.fetchone()[0])
+            if sub == self.studentidinput.currentText():
+                message = QMessageBox()
+                message.setMinimumSize(900, 200)
+                message.setWindowTitle("Grades already added")
+                message.setText("The following student's grades have already been added.\n Continue to replace previous grades.")
+                message.setIcon(QMessageBox.Information)
+                message.setStandardButtons(QMessageBox.Ok)
+                message.exec()
+        except:
+            print()
+
         cursor = conn.execute("SELECT * FROM Student WHERE id=?", [self.studentidinput.currentText()])
         info = cursor.fetchone()
         self.studentinfo.setText("ID: " + str(info[0]) + "\n" +
